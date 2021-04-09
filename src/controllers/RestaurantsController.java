@@ -96,7 +96,6 @@ public class RestaurantsController {
             case "add":
                 for (MenuItem it : items) {
                     if (it.getClass().getName().contains("FoodItem")) {
-                        System.out.println(it.toString());
                         Database.getRestaurantById(id).getMenu().getMenuList().get("Food").add(it);
                     } else {
                         Database.getRestaurantById(id).getMenu().getMenuList().get("Drinks").add(it);
@@ -105,7 +104,7 @@ public class RestaurantsController {
                 break;
             case "delete":
                 for (MenuItem it : items) {
-                    if (it.getClass().getName().equals("FoodItem")) {
+                    if (it.getClass().getName().contains("FoodItem")) {
                         Database.getRestaurantById(id).getMenu().getMenuList().get("Food").remove(it);
                     } else {
                         Database.getRestaurantById(id).getMenu().getMenuList().get("Drinks").remove(it);
