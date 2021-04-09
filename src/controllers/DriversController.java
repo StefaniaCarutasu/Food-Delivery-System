@@ -58,7 +58,7 @@ public class DriversController {
         }
     }
 
-    public void updateDriver(String id, String fieldToUpdate, String updatedValue){
+    public static void updateDriver(String id, String fieldToUpdate, String updatedValue){
         int i = 0;
         while(i < Database.getDrivers().size()){
             if(Database.getDrivers().get(i).getId().equals(id)){
@@ -96,28 +96,29 @@ public class DriversController {
         }
     }
 
-    public void showOrderHistory(String driverId){
+    public static void showOrderHistory(String driverId){
         Driver driver = Database.getDriverById(driverId);
         List<Order> orderHistory = new ArrayList<Order>();
         int i = 0;
         while(i < Database.getOrders().get("resolved").size()){
-            if(Database.getOrders().get("resolved").get(i).getUserId().equals(driverId)){
+            if(Database.getOrders().get("resolved").get(i).getDriverId().equals(driverId)){
                 orderHistory.add(Database.getOrders().get("resolved").get(i));
             }
             i++;
         }
         assert driver != null;
-        System.out.println("Driver: " + driver.getUserName() + "\n");
-        System.out.println("Orders:\n");
+        System.out.println("Driver: " + driver.getUserName());
+        System.out.println("Orders: ");
         for(Order order: orderHistory){
             System.out.println(order.toString() + "\n");
         }
     }
 
-    public void markAsDeliveredByDriver(String orderId, String driverId){
+    public static void markAsDeliveredByDriver(String orderId, String driverId){
         for(Order ord: Database.getOrders().get("active")){
             if(ord.getId().equals(orderId) && ord.getDriverId().equals(driverId)){
                 OrdersController.markAsDelivered(orderId);
+                break;
             }
         }
     }

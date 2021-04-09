@@ -1,6 +1,7 @@
 import controllers.*;
 import database.Database;
 import drivers.Driver;
+import orders.Order;
 import restaurant.*;
 import users.User;
 
@@ -65,7 +66,6 @@ public class Main {
         restaurant1.setPhoneNumber("07restaurant1");
         restaurant1.setEmail("restaurant1@gmail.com");
         RestaurantsController.showAllRestaurants();
-        System.out.println();
 
         System.out.println("Add to restaurant menu");
         FoodItem f1 = new FoodItem("Pizza", 20), f2 = new FoodItem("Soup", 15);
@@ -79,21 +79,29 @@ public class Main {
         RestaurantsController.updateRestaurantMenu(restaurant1.getId(), "add", menuDrinksR1);
 
         RestaurantsController.showAllRestaurants();
-        System.out.println();
 
         System.out.println("Delete from restaurant menu");
         List<MenuItem> toDeleteFromMenu = new ArrayList<>();
         toDeleteFromMenu.add(f1); toDeleteFromMenu.add(d2);
         RestaurantsController.updateRestaurantMenu(restaurant1.getId(), "delete", toDeleteFromMenu);
         RestaurantsController.showAllRestaurants();
-        System.out.println();
+        RestaurantsController.updateRestaurantMenu(restaurant1.getId(), "add", toDeleteFromMenu);
 
         System.out.println("Update restaurant info");
         RestaurantsController.updateRestaurant(restaurant1.getId(), "Email", "res1@gamil.com");
         RestaurantsController.showAllRestaurants();
-        System.out.println();
 
         //Create order
+        List<String> toOrder = new ArrayList<>();
+        toOrder.add(d1.getId()); toOrder.add(f1.getId());
+        OrdersController.newOrder(User1.getId(), restaurant1.getId(), "Cash", toOrder);
+        Order order1 = OrdersController.getOrder(Database.getOrders().get("active").get(0).getId(), "active");
+        System.out.println("Show active orders");
+        OrdersController.displayActiveOrder(order1.getId());
+        System.out.println("Mark an order as delivered");
+        DriversController.markAsDeliveredByDriver(order1.getId(), driver1.getId());
+        System.out.println("Show order history for driver");
+        DriversController.showOrderHistory(driver1.getId());
 
 
     }

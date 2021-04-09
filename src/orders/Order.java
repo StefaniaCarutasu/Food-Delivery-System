@@ -13,6 +13,7 @@ public class Order {
     protected String DriverId;
     protected String PaymentMethod;
     public List<MenuItem> orderedItems;
+    protected int totalPrice;
 
     public Order() {
         Id = Integer.toString(idGenerator);
@@ -31,7 +32,6 @@ public class Order {
     public String getId() {
         return Id;
     }
-
 
     public String getUserId() {
         return UserId;
@@ -76,6 +76,14 @@ public class Order {
     public String getStatus() { return Status; }
 
     public void setStatus(String status) { Status = status; }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     @Override
     public String toString() {

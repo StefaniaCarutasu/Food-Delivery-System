@@ -8,77 +8,22 @@ import restaurant.Restaurant;
 import java.util.*;
 
 public class Database {
-    static Map<String, List<Order>> Orders = new Map<String, List<Order>>() {
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return false;
-        }
-
-        @Override
-        public boolean containsValue(Object value) {
-            return false;
-        }
-
-        @Override
-        public List<Order> get(Object key) {
-            return null;
-        }
-
-        @Override
-        public List<Order> put(String key, List<Order> value) {
-            return null;
-        }
-
-        @Override
-        public List<Order> remove(Object key) {
-            return null;
-        }
-
-        @Override
-        public void putAll(Map<? extends String, ? extends List<Order>> m) {
-
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Set<String> keySet() {
-            return null;
-        }
-
-        @Override
-        public Collection<List<Order>> values() {
-            return null;
-        }
-
-        @Override
-        public Set<Entry<String, List<Order>>> entrySet() {
-            return null;
-        }
-    };
+    static TreeMap<String, List<Order>> Orders = new TreeMap<String, List<Order>>();
     static List<User> Users = new ArrayList<>();
     static List<Driver> Drivers = new ArrayList<>();
     static List<Restaurant> Restaurants = new ArrayList<>();
 
+    public Database(){
+        Orders.put("active", new ArrayList<Order>());
+        Orders.put("resolved", new ArrayList<Order>());
+        Orders.put("cancelled", new ArrayList<Order>());
+    }
 
-    public static Map<String, List<Order>> getOrders() {
+    public static TreeMap<String, List<Order>> getOrders() {
         return Orders;
     }
 
-    public static void setOrders(Map<String, List<Order>> orders) {
+    public static void setOrders(TreeMap<String, List<Order>> orders) {
         Orders = orders;
     }
 
