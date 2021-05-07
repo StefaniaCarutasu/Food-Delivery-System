@@ -35,35 +35,44 @@ public class CsvManipulator {
         try {
             File driversCsv = new File(fileName);
             Scanner myReader = new Scanner(driversCsv);
+            String data;
+            int i = 0;
             while (myReader.hasNextLine()) {
                 //get line from  file
-                String data = myReader.nextLine();
-                //split data
-                List<String> line = Arrays.asList(data.split(","));
-                switch (file){
-                    case "drivers":
-                        if(line.size() == 5){
-                            DriversController.createDriver(line.get(0), line.get(1), line.get(2), line.get(3), line.get(4));
-                        }
-                        else {
-                            DriversController.createDriver(line.get(0), line.get(1), line.get(2), line.get(3), parseInt(line.get(4)), line.get(5), line.get(6), Boolean.parseBoolean(line.get(7)));
-                        }
-                        break;
-                    case "orders":
-                        List<String> orderedItems = Arrays.asList(line.get(3).split(","));
-                        OrdersController.newOrder(line.get(0),line.get(1), line.get(2), orderedItems);
-                        break;
-                    case "restaurants":
-                        RestaurantsController.createRestaurant(line.get(0), line.get(1));
-                        break;
-                    case "users":
-                        UsersController.createUser(line.get(0), line.get(1),line.get(2));
-                        break;
-                    default:
-                        System.out.println("Not valid");
-                        break;
+                data = myReader.nextLine();
+                i += 1;
+                if(i > 1) {
+                    //split data
+                    List<String> line = Arrays.asList(data.split(","));
+                    switch (file){
+                        case "drivers":
+                            if(line.size() == 5){
+                                DriversController.createDriver(line.get(0), line.get(1), line.get(2), line.get(3), line.get(4));
+                            }
+                            else {
+                                DriversController.createDriver(line.get(0), line.get(1), line.get(2), line.get(3), parseInt(line.get(4)), line.get(5), line.get(6), Boolean.parseBoolean(line.get(7)));
+                            }
+                            break;
+                        case "orders":
+                            List<String> orderedItems = Arrays.asList(line.get(3).split(","));
+                            OrdersController.newOrder(line.get(0),line.get(1), line.get(2), orderedItems);
+                            break;
+                        case "restaurants":
+                            RestaurantsController.createRestaurant(line.get(0), line.get(1));
+                            break;
+                        case "users":
+                            if(line.size() == 3){
+                                UsersController.createUser(line.get(0), line.get(1),line.get(2));
+                            }
+                            else {
+                                UsersController.createUser(line.get(0), line.get(1), line.get(2), parseInt(line.get(3)), line.get(4));
+                            }
+                            break;
+                        default:
+                            System.out.println("Not valid");
+                            break;
+                    }
                 }
-
             }
             myReader.close();
         } catch (FileNotFoundException e) {

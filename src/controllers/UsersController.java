@@ -16,7 +16,7 @@ import java.util.List;
 //cancel order
 
 public class UsersController {
-    public void createUser(String username, String address, int age, String password, String email){
+    public static void createUser(String username, String password, String email, int age, String address){
         String methodName = new Throwable()
                 .getStackTrace()[0]
                 .getMethodName();

@@ -19,10 +19,12 @@ public class Main {
         FileWriter auditCsv = new FileWriter("audit.csv");
 
         //incarcare din csv in liste
-        CsvManipulator.read("drivers");
-        CsvManipulator.read("orders");
         CsvManipulator.read("restaurants");
+        CsvManipulator.read("drivers");
         CsvManipulator.read("users");
+        CsvManipulator.read("orders");
+
+
         /*
         //Add user to database
         UsersController.createUser("User1", "parolauser1", "user1@email.com");
