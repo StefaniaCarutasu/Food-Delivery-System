@@ -1,5 +1,6 @@
 package controllers;
 
+import database.CsvManipulator;
 import drivers.Driver;
 import orders.Order;
 import restaurant.MenuItem;
@@ -13,6 +14,11 @@ import java.util.TreeMap;
 
 public class OrdersController {
     public static List<MenuItem> orderedProducts(String restaurantId, List<String> prodIds){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         Restaurant res = Database.getRestaurantById(restaurantId);
         List<MenuItem> orderList = new ArrayList<>();
         if(res.getMenu().getMenuList() != null){
@@ -33,16 +39,27 @@ public class OrdersController {
     }
 
     public static String findAvailableDriver(){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         for(Driver d: Database.getDrivers()){
             if(d.getAvailability()){
                 d.setAvailability(false);
                 return d.getId();
             }
         }
+
         return null;
     }
 
     public static void newOrder(String userId, String restaurantId, String payment, List<String> products){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         String driver = findAvailableDriver();
         Order order = new Order(userId, restaurantId,payment,driver);
         List<MenuItem> orderList = (orderedProducts(restaurantId, products));
@@ -54,6 +71,7 @@ public class OrdersController {
         order.setOrderedItems(orderList);
         order.setTotalPrice(price);
         Database.addOrder(order);
+
     }
 
     //Get an order based on its id and status
@@ -66,7 +84,14 @@ public class OrdersController {
             }
             i++;
         }
+
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
         return null;
+
+
     }
 
     //Changes the order status from active to either cancelled or resolved
@@ -80,6 +105,11 @@ public class OrdersController {
             }
             i++;
         }
+
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
 
     //Moves an order from active list to either cancelled or resolved
@@ -101,15 +131,29 @@ public class OrdersController {
             }
             i ++;
         }
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
 
     //Cancels order
     public static void markAsCancelled(String id){
         moveOrder(id, "cancelled");
+
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
 
     public static void markAsDelivered(String id){
         moveOrder(id, "resolved");
+
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
 
     //Display order
@@ -133,5 +177,10 @@ public class OrdersController {
         String order = getOrder(id, "active").toString();
         String toDisplay = "User: " + user + " has ordered " + order;
         System.out.println(toDisplay);
+
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
 }

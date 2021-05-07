@@ -1,6 +1,7 @@
 package drivers;
 
 import users.User;
+import database.CsvManipulator;
 
 public class Driver extends User {
     protected String VehicleType;
@@ -14,6 +15,10 @@ public class Driver extends User {
         this.VehicleType = vehicleType;
         this.VehicleNumber = vehicleNumber;
         this.Availability = Boolean.TRUE;
+        String methodName = new Throwable()
+                            .getStackTrace()[0]
+                            .getMethodName();
+        CsvManipulator.write(methodName);
     }
 
     public Driver(String username, String address, String email, String password, int age, String vehicleType, String vehicleNumber, Boolean availability)  {
@@ -21,6 +26,10 @@ public class Driver extends User {
         this.VehicleType = vehicleType;
         this.VehicleNumber = vehicleNumber;
         this.Availability = availability;
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
     }
     public String getVehicleType() {
         return VehicleType;

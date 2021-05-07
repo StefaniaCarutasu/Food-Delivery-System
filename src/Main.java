@@ -5,12 +5,17 @@ import orders.Order;
 import restaurant.*;
 import users.User;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Database database = new Database();
+        FileWriter auditCsv = new FileWriter("audit.csv");
 
         //Add user to database
         UsersController.createUser("User1", "parolauser1", "user1@email.com");
@@ -103,6 +108,7 @@ public class Main {
         System.out.println("Show order history for driver");
         DriversController.showOrderHistory(driver1.getId());
 
-
+        auditCsv.flush();
+        auditCsv.close();
     }
 }

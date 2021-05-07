@@ -1,5 +1,6 @@
 package controllers;
 
+import database.CsvManipulator;
 import database.Database;
 import restaurant.MenuItem;
 import restaurant.Restaurant;
@@ -18,11 +19,21 @@ import java.util.Map;
 public class RestaurantsController {
 
     public static void createRestaurant(String name, String owner) {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         Restaurant restaurant = new Restaurant(name, owner);
         Database.addRestaurant(restaurant);
     }
 
     public static void deleteRestaurant(String id) {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         int i = 0;
         while (i < Database.getRestaurants().size()) {
             if (Database.getRestaurants().get(i).getId().equals(id)) {
@@ -34,6 +45,11 @@ public class RestaurantsController {
     }
 
     public static void showMenu(String id, String itemType) {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         List<MenuItem> itemsToShow = new ArrayList<>();
         //selectez tot meniul
         Map<String, List<MenuItem>> allMenu = Database.getRestaurantById(id).getMenu().getMenuList();
@@ -63,6 +79,11 @@ public class RestaurantsController {
     }
 
     public static void updateRestaurant(String id, String fieldToUpdate, String updatedValue) {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         int i = 0;
         while (i < Database.getRestaurants().size()) {
             if (Database.getRestaurants().get(i).getId().equals(id)) {
@@ -92,6 +113,11 @@ public class RestaurantsController {
     }
 
     public static void updateRestaurantMenu(String id, String action, List<MenuItem> items) {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         switch (action) {
             case "add":
                 for (MenuItem it : items) {
@@ -117,6 +143,11 @@ public class RestaurantsController {
     }
 
     public static void showAllRestaurants() {
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         for (Restaurant res : Database.getRestaurants()) {
             System.out.println("Restaurant name: " + res.getName());
             System.out.println("Contact:\n" + "Phone: " + res.getPhoneNumber() + ",\tEmail: " + res.getEmail() + '\n');

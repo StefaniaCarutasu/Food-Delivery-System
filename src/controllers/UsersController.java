@@ -1,5 +1,6 @@
 package controllers;
 
+import database.CsvManipulator;
 import database.Database;
 import orders.Order;
 import users.User;
@@ -16,16 +17,31 @@ import java.util.List;
 
 public class UsersController {
     public void createUser(String username, String address, int age, String password, String email){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         User user = new User(username, address, age, password, email);
         Database.addUser(user);
     }
 
     public static void createUser(String username, String password, String email){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         User user = new User(username, password, email);
         Database.addUser(user);
     }
 
     public static void deleteUser(String id){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         int i = 0;
         while(i < Database.getUsers().size()){
             if(Database.getUsers().get(i).getId().equals(id)){
@@ -39,6 +55,11 @@ public class UsersController {
     }
 
     public static void updateUser(String id, String fieldToUpdate, String updatedValue){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         int i = 0;
         while(i < Database.getUsers().size()){
             if(Database.getUsers().get(i).getId().equals(id)){
@@ -68,6 +89,11 @@ public class UsersController {
     }
 
     public static void showUser(String id){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         Boolean found = false;
         int i = 0;
         while(i < Database.getUsers().size()){
@@ -85,6 +111,11 @@ public class UsersController {
     }
 
     public void showOrderHistory(String userId){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         User usr = Database.getUserById(userId);
         List<Order> orderHistory = new ArrayList<Order>();
         int i = 0;
@@ -110,6 +141,11 @@ public class UsersController {
     }
 
     public static void cancelOrder(String orderId, String userId){
+        String methodName = new Throwable()
+                .getStackTrace()[0]
+                .getMethodName();
+        CsvManipulator.write(methodName);
+
         for(Order ord: Database.getOrders().get("active")){
             if(ord.getId().equals(orderId) && ord.getUserId().equals(userId)){
                 OrdersController.markAsCancelled(orderId);
