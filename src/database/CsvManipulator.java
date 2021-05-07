@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import controllers.*;
-import users.User;
 
 import static java.lang.Integer.parseInt;
 
@@ -31,7 +30,7 @@ public class CsvManipulator {
 
     }
 
-    public static <CSVReader> void read(String file) {
+    public static void read(String file) {
         String fileName = "src/data/" + file + ".csv";
         try {
             File driversCsv = new File(fileName);

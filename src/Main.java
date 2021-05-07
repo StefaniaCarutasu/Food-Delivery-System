@@ -1,4 +1,5 @@
 import controllers.*;
+import database.CsvManipulator;
 import database.Database;
 import drivers.Driver;
 import orders.Order;
@@ -17,6 +18,12 @@ public class Main {
         Database database = new Database();
         FileWriter auditCsv = new FileWriter("audit.csv");
 
+        //incarcare din csv in liste
+        CsvManipulator.read("drivers");
+        CsvManipulator.read("orders");
+        CsvManipulator.read("restaurants");
+        CsvManipulator.read("users");
+        /*
         //Add user to database
         UsersController.createUser("User1", "parolauser1", "user1@email.com");
         UsersController.createUser("User2", "parolauser2", "user2@email.com");
@@ -107,7 +114,7 @@ public class Main {
         DriversController.markAsDeliveredByDriver(order1.getId(), driver1.getId());
         System.out.println("Show order history for driver");
         DriversController.showOrderHistory(driver1.getId());
-
+        */
         auditCsv.flush();
         auditCsv.close();
     }
